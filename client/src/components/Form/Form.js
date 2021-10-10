@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import {TextField, Button, Typography, Paper} from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles.js';
+import {useDispatch} from 'react-redux';
+import { createPost } from '../../api/index.js';
 
 const Form = () => {
 const [postData, setPostData] = useState({
@@ -12,9 +14,11 @@ const [postData, setPostData] = useState({
     selectedFile: ''
 });
  const classes = useStyles();
+ const dispatch = useDispatch();
 
- const handleSubmit = () => {
-
+ const handleSubmit = (e) => {
+     e.preventDefault();
+     dispatch(createPost(postData));
  }
 
  const clear = () => {
@@ -32,6 +36,7 @@ const [postData, setPostData] = useState({
 
                 <Typography variant="h6">Creating a Memory</Typography>
                 <TextField 
+                className={classes.textField}
                 name="creator"
                 variant="outlined"
                 label="Creator"
@@ -40,6 +45,7 @@ const [postData, setPostData] = useState({
                 onChange={(e) => setPostData({...postData,creator: e.target.value})} />
 
                 <TextField 
+                className={classes.textField}
                 name="title"
                 variant="outlined"
                 label="Title"
@@ -48,6 +54,7 @@ const [postData, setPostData] = useState({
                 onChange={(e) => setPostData({...postData,title: e.target.value})} />
 
                 <TextField 
+                className={classes.textField}
                 name="message"
                 variant="outlined"
                 label="Message"
@@ -56,6 +63,7 @@ const [postData, setPostData] = useState({
                 onChange={(e) => setPostData({...postData,message: e.target.value})} />
 
                 <TextField 
+                className={classes.textField} 
                 name="tags"
                 variant="outlined"
                 label="Tags"
@@ -75,6 +83,7 @@ const [postData, setPostData] = useState({
                 color="primary"
                 size="large"
                 type="submit"
+                onClick={handleSubmit}
                 fullWidth>Submit</Button>
 
                 <Button 
