@@ -5,7 +5,7 @@ import * as api from '../api';
 export const getPosts = () => async(dispatch) => {
     
     try {
-
+      
         const { data } = await api.fetchPosts();
         const action = { type: 'FETCH_ALL', payload: data}
         dispatch(action); 
@@ -18,12 +18,17 @@ export const getPosts = () => async(dispatch) => {
 
 export const createPost = (post) => async(dispatch) => {
     try {
-        
-        const {data} = await api.createPost(post);
-        const action = {type: 'CREATE', payload: data}
-
+        console.log(post);
+        console.log(api.createPost(post));
+        const { data } = await api.createPost(post);
+        console.log(data);
+        //console.log(api.createPost(post));
+        // api.createPost(post).then(response => {
+         dispatch({ type: 'CREATE', payload: data });
+        // })
+        //dispatch({ type: 'CREATE', payload: data });
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
         
     }
 }

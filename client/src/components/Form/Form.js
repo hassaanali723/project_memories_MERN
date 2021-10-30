@@ -3,7 +3,7 @@ import {TextField, Button, Typography, Paper} from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles.js';
 import {useDispatch} from 'react-redux';
-import { createPost } from '../../api/index.js';
+import { createPost } from '../../actions/posts';
 
 const Form = () => {
 const [postData, setPostData] = useState({
@@ -17,8 +17,12 @@ const [postData, setPostData] = useState({
  const dispatch = useDispatch();
 
  const handleSubmit = (e) => {
+
+    
      e.preventDefault();
      dispatch(createPost(postData));
+     console.log(postData);
+
  }
 
  const clear = () => {
@@ -32,7 +36,7 @@ const [postData, setPostData] = useState({
                 autoComplete="off" 
                 noValidate 
                 className={`${classes.root} ${classes.form}`}
-                onSubmit={handleSubmit}></form>
+                onSubmit={handleSubmit}>
 
                 <Typography variant="h6">Creating a Memory</Typography>
                 <TextField 
@@ -83,7 +87,6 @@ const [postData, setPostData] = useState({
                 color="primary"
                 size="large"
                 type="submit"
-                onClick={handleSubmit}
                 fullWidth>Submit</Button>
 
                 <Button 
@@ -92,6 +95,8 @@ const [postData, setPostData] = useState({
                 size="small"
                 onClick={clear}
                 fullWidth>Clear </Button>
+
+             </form>
 
 
             </Paper>
